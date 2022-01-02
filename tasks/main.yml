@@ -58,7 +58,8 @@
       changed_when: false
 
     - name: install or update ansible
-      shell: /usr/bin/python{{ python_v }} -m pip install ansible=={{ ansible_v }}
+      shell: |
+        /usr/bin/python{{ python_v }} -m pip install ansible=={{ ansible_v }}
       when:
         - installed_version.stdout is defined
         - ansible_v not in installed_version.stdout
