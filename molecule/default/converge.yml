@@ -1,0 +1,16 @@
+---
+- name: Converge
+  hosts: test-multi-01
+  tasks:
+    - name: import gpg key
+      rpm_key:
+        key: https://dl.rockylinux.org/pub/rocky/RPM-GPG-KEY-rockyofficial
+
+    - name: install ssh-keygen
+      dnf:
+        name: openssh-clients
+
+- name: Converge
+  hosts: test-multi-01
+  roles:
+    - ../controller

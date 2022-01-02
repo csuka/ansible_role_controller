@@ -1,0 +1,39 @@
+---
+# since there are several reserved variables, e.g. ansible version,
+# we use other conventional naming
+ansible_v: 5.0.1
+python_v: 3.9
+
+remote_tmp: /home/ansible/.ansible/tmp
+
+pip_default_pkgs:
+  - pip==21.3.1
+  - simplejson
+  - ansible-lint[yamllint]
+  - netaddr
+  - pexpect
+  - jmespath
+  - docker
+  - requests
+  - xmltodict
+  - yamllint
+  - setuptools_rust
+
+pip_extra_pkgs: []
+pip_pkgs: "{{ pip_default_pkgs }} + {{ pip_extra_pkgs }}"
+
+config:
+  defaults:
+    ansibe_managed: 'Ansible managed'
+    remote_user: ansible
+    interpreter_python: auto
+    callback_enabled: profile_tasks
+    host_key_checking: 'False'
+    retry_files_enabled: 'False'
+    force_color: 'True'
+    log_path: /var/log/ansible/ansible.log
+    forks: 50
+  ssh_connection:
+    pipelining: 'True'
+    retries: 3
+    ssh_args: '-C -o ControlMaster=auto -o ControlPersist=1800s'

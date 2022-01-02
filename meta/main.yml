@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: Kevin Csuka
+  description: Ansible role to setup an Ansible controller
+  namespace: kcsuka
+  role_name: ansible_controller
+  license: Apache License, Version 2.0
+  min_ansible_version: 2.9
+  platforms:
+    - name: EL
+      versions:
+        - 8
+  galaxy_tags:
+    - ansible
+    - controller
+    - master
+
+dependencies: []

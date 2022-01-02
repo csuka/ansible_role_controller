@@ -1,0 +1,91 @@
+---
+- name: epel repo
+  dnf:
+    pkg: epel-release
+
+- name: set ansible user
+  user:
+    name: ansible
+    generate_ssh_key: true
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+    comment: "Ansible User"
+
+- name: ensure remote tmp exists
+  file:
+    path: "{{ remote_tmp }}"
+    state: directory
+    mode: '0700'
+    owner: ansible
+    group: ansible
+
+- name: passwordless root in sudoers file
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^ansible ALL\='
+    line: 'ansible ALL=(ALL) NOPASSWD:ALL'
+    validate: 'visudo -cf %s'
+  tags: notest
+
+- name: python{{ python_v }}
+  dnf:
+    name: "python{{ python_v }}"
+
+- name: ensure required packages are installed
+  dnf:
+    name: "{{ item }}"
+  loop:
+    - python2
+    - gcc
+    - libffi-devel
+    - openssl-devel
+    - sshpass
+    - bind-utils
+    - git
+
+- block:
+
+    - name: ensure pip pkgs are installed
+      shell: "/usr/bin/python{{ python_v }} -m pip install {{ item }}"
+      changed_when: false
+      loop: "{{ pip_pkgs }}"
+
+    - name: check ansible version
+      shell: "/usr/bin/python{{ python_v }} -m pip list | grep ansible || true"
+      register: installed_version
+      ignore_errors: true
+      changed_when: false
+
+    - name: install or update ansible
+      shell: /usr/bin/python{{ python_v }} -m pip install ansible=={{ ansible_v }}
+      when:
+        - installed_version.stdout is defined
+        - ansible_v not in installed_version.stdout
+
+  become_user: ansible
+
+- name: dir /etc/ansible and /var/log/ansible
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0700'
+    owner: ansible
+    group: ansible
+  loop:
+    - /etc/ansible
+    - /var/log/ansible
+
+- name: config
+  template:
+    src: ansible.cfg.j2
+    mode: '0700'
+    owner: ansible
+    group: ansible
+    dest: /etc/ansible/ansible.cfg
+
+- name: logrotate
+  template:
+    src: ansible_logrotate.conf.j2
+    dest: /etc/logrotate.d/ansible
+    mode: '0644'
