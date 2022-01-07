@@ -1,0 +1,12 @@
+{{ ansible_managed | comment }}
+
+{% for key, value in config.items() %}
+[{{ key }}]
+{% for key, value in value.items() %}
+{% if value is defined and value %}
+{{ key }} = {{ value }}
+{% else %}
+{{ key }}
+{% endif %}
+{% endfor %}
+{% endfor %}

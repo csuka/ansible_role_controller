@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+
+/var/log/ansible/* {
+    daily
+    rotate 7
+    size 1M
+    compress
+    delaycompress
+}
