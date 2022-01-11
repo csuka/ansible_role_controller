@@ -68,7 +68,7 @@ config:
 
 ## Example playbook
 
-```
+```yaml
 ---
 - hosts: my_hosts
   gather_facts: false
