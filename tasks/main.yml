@@ -54,19 +54,19 @@
     - name: check ansible version
       shell: "/usr/bin/python{{ python_v }} -m pip list | grep ansible || true"
       register: installed_version
-      ignore_errors: true
       changed_when: false
 
     - name: install or update ansible
-      shell: |
-        /usr/bin/python{{ python_v }} -m pip install ansible=={{ ansible_v }}
+      shell: >-
+        /usr/bin/python{{ python_v }} -m pip
+        install ansible=={{ ansible_v }} --user
       when:
         - installed_version.stdout is defined
         - ansible_v not in installed_version.stdout
 
   become_user: ansible
 
-- name: dir /etc/ansible and /var/log/ansible
+- name: ensure dirs /etc/ansible and /var/log/ansible exists
   file:
     path: "{{ item }}"
     state: directory
@@ -77,7 +77,7 @@
     - /etc/ansible
     - /var/log/ansible
 
-- name: config
+- name: set ansible config
   template:
     src: ansible.cfg.j2
     mode: '0700'
@@ -85,8 +85,8 @@
     group: ansible
     dest: /etc/ansible/ansible.cfg
 
-- name: logrotate
+- name: set logrotate
   template:
-    src: ansible_logrotate.conf.j2
+    src: logrotate.j2
     dest: /etc/logrotate.d/ansible
     mode: '0644'

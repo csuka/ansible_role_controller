@@ -1,13 +1,13 @@
 ---
 # since there are several reserved variables, e.g. ansible version,
 # we use other conventional naming
-ansible_v: 5.0.1
+ansible_v: 5.8.0
 python_v: 3.9
 
 remote_tmp: /home/ansible/.ansible/tmp
 
 pip_default_pkgs:
-  - pip==21.3.1
+  - pip==22.1.1
   - simplejson
   - ansible-lint[yamllint]
   - netaddr
@@ -16,6 +16,7 @@ pip_default_pkgs:
   - docker
   - requests
   - xmltodict
+  - wheel
   - yamllint
   - setuptools_rust
 
@@ -27,12 +28,12 @@ config:
     ansibe_managed: 'Ansible managed'
     remote_user: ansible
     interpreter_python: auto
-    callback_enabled: profile_tasks
+    callbacks_enabled: ansible.posix.profile_tasks
     host_key_checking: 'False'
     retry_files_enabled: 'False'
     force_color: 'True'
     log_path: /var/log/ansible/ansible.log
-    forks: 50
+    forks: 30
   ssh_connection:
     pipelining: 'True'
     retries: 3
