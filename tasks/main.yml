@@ -30,9 +30,10 @@
 
 - name: "ensure python{{ python_v }} and required packages are installed"
   dnf:
-    name:
-      - "{{ python_v }}"
-      - "{{ controller_pkgs }}"
+    name: "{{ item }}"
+  loop:
+    - "python{{ python_v }}"
+    - "{{ controller_pkgs }}"
 
 - block:
 
