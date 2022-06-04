@@ -28,7 +28,7 @@
     validate: 'visudo -cf %s'
   tags: notest
 
-- name: python{{ python_v }}
+- name: ensure python{{ python_v }} is installed
   dnf:
     name: "python{{ python_v }}"
 
@@ -38,7 +38,7 @@
 
 - block:
 
-    - name: ensure pip pkgs are installed
+    - name: ensure pip packages are installed
       shell: "/usr/bin/python{{ python_v }} -m pip install {{ item }}"
       changed_when: false
       loop: "{{ pip_pkgs }}"
@@ -48,7 +48,7 @@
       register: installed_version
       changed_when: false
 
-    - name: install or update ansible
+    - name: install or update ansible if applicable
       shell: >-
         /usr/bin/python{{ python_v }} -m pip
         install ansible=={{ ansible_v }} --user
@@ -69,16 +69,21 @@
     - /etc/ansible
     - /var/log/ansible
 
-- name: set ansible config
+- name: set ansible config and logrotate
   template:
-    src: ansible.cfg.j2
-    mode: '0700'
-    owner: ansible
-    group: ansible
-    dest: /etc/ansible/ansible.cfg
-
-- name: set logrotate
-  template:
-    src: logrotate.j2
-    dest: /etc/logrotate.d/ansible
-    mode: '0644'
+    src: "{{ item.src }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - src: ansible.cfg.j2
+      mode: '0700'
+      owner: ansible
+      group: ansible
+      dest: /etc/ansible/ansible.cfg
+    - src: logrotate.j2
+      mode: '0644'
+      owner: root
+      group: root
+      dest: /etc/logrotate.d/ansible

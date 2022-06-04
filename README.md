@@ -1,7 +1,7 @@
 # Ansible Role - Controller
 
 This role installs and configures Ansible to be used as a controller node.
-A specific Python version is installed as well, Ansible is installed with that chosen python version.
+A specific Python version is installed as well, Ansible is installed with that chosen python version. The epel repo is installed as well
 
 ```yaml
 # since there are several reserved variables, e.g. ansible version,
