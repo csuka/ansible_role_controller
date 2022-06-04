@@ -6,6 +6,14 @@ python_v: 3.9
 
 remote_tmp: /home/ansible/.ansible/tmp
 
+controller_pkgs:
+  - gcc
+  - libffi-devel
+  - openssl-devel
+  - sshpass
+  - bind-utils
+  - git
+
 pip_default_pkgs:
   - pip==22.1.1
   - simplejson

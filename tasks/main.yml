@@ -34,15 +34,7 @@
 
 - name: ensure required packages are installed
   dnf:
-    name: "{{ item }}"
-  loop:
-    - python2
-    - gcc
-    - libffi-devel
-    - openssl-devel
-    - sshpass
-    - bind-utils
-    - git
+    name: "{{ controller_pkgs }}"
 
 - block:
 
