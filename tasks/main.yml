@@ -28,13 +28,11 @@
     validate: 'visudo -cf %s'
   tags: notest
 
-- name: ensure python{{ python_v }} is installed
+- name: "ensure python{{ python_v }} and required packages are installed"
   dnf:
-    name: "python{{ python_v }}"
-
-- name: ensure required packages are installed
-  dnf:
-    name: "{{ controller_pkgs }}"
+    name:
+      - "{{ python_v }}"
+      - "{{ controller_pkgs }}"
 
 - block:
 
