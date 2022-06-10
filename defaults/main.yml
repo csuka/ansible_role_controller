@@ -1,32 +1,32 @@
 ---
 # since there are several reserved variables, e.g. ansible version,
 # we use other conventional naming
-ansible_v: 5.8.0
+ansible_v: 5.9.0
 python_v: 3.9
 
 remote_tmp: /home/ansible/.ansible/tmp
 
 controller_pkgs:
+  - bind-utils
   - gcc
+  - git
   - libffi-devel
   - openssl-devel
   - sshpass
-  - bind-utils
-  - git
 
 pip_default_pkgs:
-  - pip==22.1.1
-  - simplejson
   - ansible-lint[yamllint]
+  - docker
+  - jmespath
   - netaddr
   - pexpect
-  - jmespath
-  - docker
+  - pip==22.1.1
   - requests
-  - xmltodict
-  - wheel
-  - yamllint
   - setuptools_rust
+  - simplejson
+  - wheel
+  - xmltodict
+  - yamllint
 
 pip_extra_pkgs: []
 pip_pkgs: "{{ pip_default_pkgs }} + {{ pip_extra_pkgs }}"
