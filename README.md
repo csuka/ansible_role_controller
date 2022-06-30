@@ -27,18 +27,19 @@ remote_tmp: /home/ansible/.ansible/tmp
 
 Several pip packages are installed by default:
 
-  - pip==22.1.2
-  - simplejson
+  - "ansible=={{ ansible_v }}"
   - ansible-lint[yamllint]
+  - docker
+  - jmespath
   - netaddr
   - pexpect
-  - jmespath
-  - docker
+  - pip==22.1.2
   - requests
-  - xmltodict
-  - wheel
-  - yamllint
   - setuptools_rust
+  - simplejson
+  - wheel
+  - xmltodict
+  - yamllint
 
 Define additional pip packages to install with:
 

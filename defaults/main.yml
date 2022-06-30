@@ -15,8 +15,8 @@ controller_pkgs:
   - sshpass
 
 pip_default_pkgs:
-  - ansible-lint[yamllint]
   - "ansible=={{ ansible_v }}"
+  - ansible-lint[yamllint]
   - docker
   - jmespath
   - netaddr
