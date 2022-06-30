@@ -11,7 +11,7 @@
     ssh_key_file: .ssh/id_rsa
     comment: "Ansible User"
 
-- name: ensure remote tmp exists
+- name: ensure remote tmp directory exists
   file:
     path: "{{ remote_tmp }}"
     state: directory

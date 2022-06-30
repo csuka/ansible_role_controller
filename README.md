@@ -17,7 +17,7 @@ See the file `defaults/main.yml` for the remaining defaults, they should speak f
 
 ## remote_tmp
 
-Ansible works by transferring modules to your remote machines, running them, and then cleaning up after itself. Ansible stores some files on the controller machine as well machine. The path is configured with:
+Ansible works by transferring modules to your remote machines, running them, and then cleaning up after itself. Ansible stores some files on the controller machine as well machine. This directory path is created by default on the controller node with:
 
 ```yaml
 remote_tmp: /home/ansible/.ansible/tmp
