@@ -40,7 +40,7 @@ Several pip packages are installed by default:
   - yamllint
   - setuptools_rust
 
-Define additional packages with:
+Define additional pip packages to install with:
 
 ```yaml
 pip_extra_pkgs:
@@ -49,7 +49,7 @@ pip_extra_pkgs:
 
 ## configuration
 
-A configuration file is placed in `/etc/ansible/ansible.cfg`, with the following variables:
+A configuration file is placed in `/etc/ansible/ansible.cfg`, with the following default variables:
 
 ```yaml
 config:
@@ -71,9 +71,12 @@ config:
 
 ## Example playbook
 
+Fact gathering is required.
+
 ```yaml
 ---
 - hosts: my_hosts
+  gather_facts: true
   become: true
   roles:
     - ansible_role_controller
@@ -81,5 +84,4 @@ config:
 
 ### Mitogen
 
-This is not included.
-I've also experienced several weird use cases where Ansible became buggy using Mitogen.
+I've decided to not include mitogen, as I've experienced several weird use cases where Ansible became buggy using Mitogen.
