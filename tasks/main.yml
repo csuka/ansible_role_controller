@@ -33,28 +33,15 @@
     name: "{{ item }}"
   loop:
     - "python{{ python_v }}"
+    - "python{{ python_v }}-pip"
     - "{{ controller_pkgs }}"
 
-- block:
-
-    - name: ensure pip packages are installed
-      shell: "/usr/bin/python{{ python_v }} -m pip install {{ item }}"
-      changed_when: false
-      loop: "{{ pip_pkgs }}"
-
-    - name: check ansible version
-      shell: "/usr/bin/python{{ python_v }} -m pip list | grep ansible || true"
-      register: installed_version
-      changed_when: false
-
-    - name: install or update ansible if applicable
-      shell: >-
-        /usr/bin/python{{ python_v }} -m pip
-        install ansible=={{ ansible_v }} --user
-      when:
-        - installed_version.stdout is defined
-        - ansible_v not in installed_version.stdout
-
+- name: ensure pip packages and ansible are installed for the ansible user
+  pip:
+    name: "{{ item }}"
+    extra_args: --user
+    executable: "pip{{ python_v }}"
+  loop: "{{ pip_pkgs }}"
   become_user: ansible
 
 - name: ensure dirs /etc/ansible and /var/log/ansible exists

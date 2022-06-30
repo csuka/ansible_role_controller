@@ -16,6 +16,7 @@ controller_pkgs:
 
 pip_default_pkgs:
   - ansible-lint[yamllint]
+  - "ansible=={{ ansible_v }}"
   - docker
   - jmespath
   - netaddr
