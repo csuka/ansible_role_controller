@@ -13,4 +13,4 @@
 - name: Converge
   hosts: test-multi-01
   roles:
-    - ../controller
+    - ../ansible_role_controller
