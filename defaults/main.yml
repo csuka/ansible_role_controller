@@ -1,7 +1,7 @@
 ---
 # since there are several reserved variables, e.g. ansible version,
 # we use other conventional naming
-ansible_v: 5.9.0
+ansible_v: 6.0.0
 python_v: 3.9
 
 remote_tmp: /home/ansible/.ansible/tmp
@@ -20,7 +20,7 @@ pip_default_pkgs:
   - jmespath
   - netaddr
   - pexpect
-  - pip==22.1.1
+  - pip==22.1.2
   - requests
   - setuptools_rust
   - simplejson

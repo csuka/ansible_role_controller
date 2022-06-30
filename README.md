@@ -6,7 +6,7 @@ A specific Python version is installed as well, Ansible is installed with that c
 ```yaml
 # since there are several reserved variables, e.g. ansible version,
 # we use other conventional naming
-ansible_v: 5.8.0
+ansible_v: 6.0.0
 python_v: 3.9
 ```
 The ansible-core version is automatically installed along with the chosen base version.
@@ -25,7 +25,7 @@ remote_tmp: /home/ansible/.ansible/tmp
 
 Several pip packages are installed by default:
 
-  - pip==22.1.1
+  - pip==22.1.2
   - simplejson
   - ansible-lint[yamllint]
   - netaddr
