@@ -1,7 +1,7 @@
 ---
 # since there are several reserved variables, e.g. ansible version,
 # we use other conventional naming
-ansible_v: 6.0.0
+ansible_v: 6.6.0
 python_v: 3.9
 
 remote_tmp: /home/ansible/.ansible/tmp
@@ -21,7 +21,7 @@ pip_default_pkgs:
   - jmespath
   - netaddr
   - pexpect
-  - pip==22.1.2
+  - pip==22.3.1
   - requests
   - setuptools_rust
   - simplejson
@@ -30,15 +30,18 @@ pip_default_pkgs:
   - yamllint
 
 pip_extra_pkgs: []
-pip_pkgs: "{{ pip_default_pkgs }} + {{ pip_extra_pkgs }}"
+pip_pkgs: 
+  - "{{ pip_default_pkgs }}"
+  - "{{ pip_extra_pkgs }}"
 
 config:
   defaults:
     ansibe_managed: 'Ansible managed'
     remote_user: ansible
-    interpreter_python: auto
+    interpreter_python: /usr/bin/python3
     callbacks_enabled: ansible.posix.profile_tasks
     host_key_checking: 'False'
+    stdout_callback: yaml
     retry_files_enabled: 'False'
     force_color: 'True'
     log_path: /var/log/ansible/ansible.log

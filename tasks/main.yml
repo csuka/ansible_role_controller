@@ -1,40 +1,40 @@
 ---
-- name: epel repo
-  dnf:
-    pkg: epel-release
+# - name: epel repo
+#   dnf:
+#     pkg: epel-release
 
-- name: set ansible user
-  user:
-    name: ansible
-    generate_ssh_key: true
-    ssh_key_bits: 2048
-    ssh_key_file: .ssh/id_rsa
-    comment: "Ansible User"
+# - name: set ansible user
+#   user:
+#     name: ansible
+#     generate_ssh_key: true
+#     ssh_key_bits: 2048
+#     ssh_key_file: .ssh/id_rsa
+#     comment: "Ansible User"
 
-- name: ensure remote tmp directory exists
-  file:
-    path: "{{ remote_tmp }}"
-    state: directory
-    mode: '0700'
-    owner: ansible
-    group: ansible
+# - name: ensure remote tmp directory exists
+#   file:
+#     path: "{{ remote_tmp }}"
+#     state: directory
+#     mode: '0700'
+#     owner: ansible
+#     group: ansible
 
-- name: passwordless root in sudoers file
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^ansible ALL\='
-    line: 'ansible ALL=(ALL) NOPASSWD:ALL'
-    validate: 'visudo -cf %s'
-  tags: notest
+# - name: passwordless root in sudoers file
+#   lineinfile:
+#     dest: /etc/sudoers
+#     state: present
+#     regexp: '^ansible ALL\='
+#     line: 'ansible ALL=(ALL) NOPASSWD:ALL'
+#     validate: 'visudo -cf %s'
+#   tags: notest
 
-- name: "ensure python{{ python_v }} and required packages are installed"
-  dnf:
-    name: "{{ item }}"
-  loop:
-    - "python{{ python_v }}"
-    - "python{{ python_v }}-pip"
-    - "{{ controller_pkgs }}"
+# - name: "ensure python{{ python_v }} and required packages are installed"
+#   dnf:
+#     name: "{{ item }}"
+#   loop:
+#     - "python{{ python_v }}"
+#     - "python{{ python_v }}-pip"
+#     - "{{ controller_pkgs }}"
 
 - name: ensure pip packages and ansible are installed for the ansible user
   pip:

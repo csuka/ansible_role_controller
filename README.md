@@ -8,7 +8,7 @@ To do so, a specific Python version is installed as well, Ansible is installed w
 ```yaml
 # since there are several reserved variables, e.g. ansible version,
 # we use other conventional naming
-ansible_v: 6.0.0
+ansible_v: 6.6.0
 python_v: 3.9
 ```
 The ansible-core version is automatically installed along with the chosen base version.
@@ -33,7 +33,7 @@ Several pip packages are installed by default:
   - jmespath
   - netaddr
   - pexpect
-  - pip==22.1.2
+  - pip==22.3.1
   - requests
   - setuptools_rust
   - simplejson
