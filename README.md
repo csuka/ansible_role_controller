@@ -73,12 +73,12 @@ config:
 
 ## Example playbook
 
-Fact gathering is required.
+Fact gathering is unrequired.
 
 ```yaml
 ---
 - hosts: my_hosts
-  gather_facts: true
+  gather_facts: false
   become: true
   roles:
     - ansible_role_controller
