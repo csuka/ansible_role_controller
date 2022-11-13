@@ -57,9 +57,10 @@ config:
   defaults:
     ansibe_managed: 'Ansible managed'
     remote_user: ansible
-    interpreter_python: auto
+    interpreter_python: /usr/bin/python3
     callbacks_enabled: ansible.posix.profile_tasks
     host_key_checking: 'False'
+    stdout_callback: yaml
     retry_files_enabled: 'False'
     force_color: 'True'
     log_path: /var/log/ansible/ansible.log
